@@ -2,18 +2,20 @@
 
 [프로젝트 홈페이지 - https://koposoftware.github.io/finalproject_template/](https://koposoftware.github.io/finalproject_template/)
 
-# 1. 프로젝트 개요
+## 1. 프로젝트 소개
+### 1) 프로젝트 개요
+### 2) 프로젝트 목적
+### 3) 프로젝트 기대효과
+### 4) 프로젝트 수행기간
 
-이것은 프로젝트 개요입니다. 글과 그림을 이용하여 개요를 설명하세요.
 
-# 2. 프로젝트 제안서
+# 2. 프로젝트 구성
+### 1) 서비스 아키텍쳐
+### 2) 시스템 아키텍쳐
+### 3) ERD
+### 4) 기능 리스트
+### 5) 사용기술
 
-프로젝트 제안서를 설명하세요. 발표자료와 동영상을 추가하세요. 시스템의 아키텍쳐 설명도 추가하세요.
-
- 
-[발표자료<img src="ppt.jpg"/>](/project.pptx)<br>
-<br> <br> 
-  <iframe width="424" height="238" src="https://www.youtube.com/embed/reOGfxYJre0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 # 3. 프로젝트 결과
 프로젝트 결과를 추가하세요. 발표자료. 시연동영상을 추가하세요.
