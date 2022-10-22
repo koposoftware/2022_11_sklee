@@ -13,6 +13,7 @@
 # 2. 프로젝트 구성
 ### 1) 서비스 아키텍쳐
 ### 2) 시스템 아키텍쳐
+<img src="/img_HanaBizUp/system_architecture.png"/><br>
 ### 3) ERD
 ### 4) 기능 리스트
 ### 5) 사용기술
