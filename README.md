@@ -12,6 +12,7 @@
 
 # 2. 프로젝트 구성
 ### 1) 서비스 아키텍쳐
+<img src="/img_HanaBizUp/service_architecture.png"/><br>
 ### 2) 시스템 아키텍쳐
 <img src="/img_HanaBizUp/system_architecture.png"/><br>
 ### 3) ERD
@@ -21,12 +22,10 @@
 
 # 3. 프로젝트 결과
 프로젝트 결과를 추가하세요. 발표자료. 시연동영상을 추가하세요.
-   <img src="architecture.png"/><br>
-   
-   <img src="erd.JPG"/><br>
+
 ## 발표 ppt 
 
-[발표자료<img src="ppt.jpg"/>](/project.pptx)<br>
+
 ## 시연 동영상 
 
   <iframe width="424" height="238" src="https://www.youtube.com/embed/reOGfxYJre0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
