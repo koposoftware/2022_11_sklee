@@ -15,7 +15,12 @@
 <img src="/img_HanaBizUp/service_architecture.png"/><br>
 ### 2) 시스템 아키텍쳐
 <img src="/img_HanaBizUp/system_architecture.png"/><br>
+
 ### 3) 기능 리스트
+#### 가. 매출 및 비용 관리 
+1. 기업에서 발생한 모든 거래내용 기록<br>
+
+<img src="/img_HanaBizUp/fn1.png"/><br>
 
 ### 4) ERD
 ### 5) 사용기술
