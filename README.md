@@ -3,26 +3,26 @@
 
 [프로젝트 홈페이지 - https://koposoftware.github.io/finalproject_template/](https://koposoftware.github.io/finalproject_template/)
 
-# 1. 프로젝트 소개
-## 1) 프로젝트 개요
-## 2) 프로젝트 목적
-## 3) 프로젝트 기대효과
+## 1. 프로젝트 소개
+### 1) 프로젝트 개요
+### 2) 프로젝트 목적
+### 3) 프로젝트 기대효과
 <img src="/img_HanaBizUp/anticipated_result.png"/><br>
-## 4) 프로젝트 수행기간<br>
+### 4) 프로젝트 수행기간<br>
 <img src="/img_HanaBizUp/gantt_chart.png" /><br>
 
 
 
-# 2. 프로젝트 구성
-## 1) 서비스 아키텍쳐
+## 2. 프로젝트 구성
+### 1) 서비스 아키텍쳐
 <img src="/img_HanaBizUp/service_architecture.png"/><br>
 
-## 2) 시스템 아키텍쳐
+### 2) 시스템 아키텍쳐
 <img src="/img_HanaBizUp/system_architecture.png"/><br>
 
-## 3) ERD
+### 3) ERD
 
-## 4) 주요 기능
+### 4) 주요 기능
 ### Ⅰ. 매출 및 비용 관리 & 회계분개
 ### **1. 기업에서 발생한 모든 거래내용 기록** <br>
 -  전문 회계지식이 없어도 기업의 거래내역을 **회계분개**할 수 있도록 입력폼 설계<br>
@@ -96,7 +96,7 @@ ex) 거래처와 회식한 경우 그 금액은 판매관리비의 접대비, �
 
 
 
-## 5) 사용기술
+### 5) 사용기술
 
 
 # 3. 프로젝트 결과
