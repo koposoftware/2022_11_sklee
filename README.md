@@ -7,7 +7,8 @@
 ## 2) 프로젝트 목적
 ## 3) 프로젝트 기대효과
 <img src="/img_HanaBizUp/anticipated_result.png"/><br>
-## 4) 프로젝트 수행기간
+## 4) 프로젝트 수행기간<br>
+<img src="/img_HanaBizUp/anticipated_result.png"/><br>
 
 
 # 2. 프로젝트 구성
@@ -15,7 +16,7 @@
 <img src="/img_HanaBizUp/service_architecture.png"/><br>
 
 ## 2) 시스템 아키텍쳐
-<img src="/img_HanaBizUp/system_architecture.png"/><br>
+<img src="/img_HanaBizUp/gantt_chart.png" width="800" /><br>
 
 ## 3) ERD
 
