@@ -29,7 +29,8 @@
 <img src="./img_HanaBizUp/system_architecture.png"/><br>
 
 ### 3) ERD
-<img src="./img_HanaBizUp/erd_color.png" width="800"/>
+<img src="./img_HanaBizUp/erd_color.png" width="800"/><br>
+
 ### 4) 서비스 대상
 <img src="./img_HanaBizUp/customer.png"/><br>
 
