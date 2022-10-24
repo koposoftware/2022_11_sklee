@@ -125,7 +125,7 @@ ex) 거래처와 회식한 경우 그 금액은 판매관리비의 접대비, �
 
 |이름 |이서경|![gdKO](./img_HanaBizUp/profile.jpg)|
 |연락처 |lastsun4@naver.com|
-|skill set| Frontend - Java, HTML, CSS, Javascript|
+|skill set| Frontend - HTML, CSS, Javascript|
 | | Backend - Java, Spring, Oracle|
 |자격증| 2021.01.24 토익 985점 |
 || 2011.11.12 DELF B1 |
