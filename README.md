@@ -114,7 +114,7 @@ ex) 거래처와 회식한 경우 그 금액은 판매관리비의 접대비, �
 # 3. 프로젝트 결과
 
 ## 발표 ppt 
-[발표자료<img src="./img_HanaBizUp/hanabizup_main.png"/>](/project.pdf)<br>
+[발표자료<img src="./img_HanaBizUp/hanabizup_main.png"/>](./img_HanaBizUp/presentation.pptx)<br>
 
 ## 시연 동영상 
 <iframe width="727" height="409" src="https://www.youtube.com/embed/TsX9nJEf3s8" title="웹개발프로젝트_하나비즈업_시연영상" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
