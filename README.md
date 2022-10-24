@@ -109,7 +109,7 @@ ex) 거래처와 회식한 경우 그 금액은 판매관리비의 접대비, �
 
 
 ### 5) 사용기술
-
+<img src="./img_HanaBizUp/main_function.png" width="800"/><br><br>
 
 # 3. 프로젝트 결과
 
@@ -119,20 +119,16 @@ ex) 거래처와 회식한 경우 그 금액은 판매관리비의 접대비, �
 ## 시연 동영상 
 <iframe width="727" height="409" src="https://www.youtube.com/embed/TsX9nJEf3s8" title="웹개발프로젝트_하나비즈업_시연영상" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-# 4. 기타
- 
 # 5. 본인 소개
 
 본인 소개를 추가하세요
 
-|이름 |이서경|![gdKO](/gdko.jpg)|
-|연락처 |lastsun4(@)naver.com|
+|이름 |이서경|![gdKO](./img_HanaBizUp/profile.jpg)|
+|연락처 |lastsun4@naver.com|
 |skill set| Frontend - Java, HTML, CSS, Javascript|
 | | Backend - Java, Spring, Oracle|
 |자격증| 2021.01.24 토익 985점 |
 || 2011.11.12 DELF B1 |
-
-|수상| 20xx년 ICT 멘토링 프로젝트 대상 수상 (과학기술정보통신부 지원)  |
 |특기사항|  블로그 운영 |
 
 
