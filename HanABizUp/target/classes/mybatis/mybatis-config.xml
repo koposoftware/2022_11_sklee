@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="kr.ac.kopo.member.vo.MemberVO"
+		alias="memberVO"/>
+		<typeAlias type="kr.ac.kopo.business.vo.RevenueVO" alias="revenueVO"/>
+		<typeAlias type="kr.ac.kopo.business.vo.ProductVO" alias="productVO"/>
+		<typeAlias type="kr.ac.kopo.business.vo.LedgerVO" alias="ledgerVO"/>
+		<typeAlias type="kr.ac.kopo.business.vo.ProductCostVO" alias="productCostVO"/>
+		<typeAlias type="kr.ac.kopo.business.vo.AccountingCodeVO" alias="accountingCodeVO"/>
+		<typeAlias type="kr.ac.kopo.business.vo.SellingExpensesVO" alias="sellingExpensesVO"/>
+		<typeAlias type="kr.ac.kopo.business.vo.AssetsVO" alias="assetsVO"/>
+		<typeAlias type="kr.ac.kopo.business.vo.TrialBalanceVO" alias="trialBalanceVO"/>
+		<typeAlias type="kr.ac.kopo.business.vo.AccountingPeriodVO" alias="accountingPeriodVO"/>
+		<typeAlias type="kr.ac.kopo.business.vo.IncomeStatementVO" alias="incomeStatementVO"/>
+		<typeAlias type="kr.ac.kopo.business.vo.BalanceSheetVO" alias="balanceSheetVO"/>
+		<typeAlias type="kr.ac.kopo.business.vo.SalesStatVO" alias="salesStatVO"/>
+		<typeAlias type="kr.ac.kopo.business.vo.KeywordSearchVO" alias="keywordSearchVO"/>
+		
+		<typeAlias type="kr.ac.kopo.financial.vo.CalFirmVO" alias="calFirmVO"/>
+		<typeAlias type="kr.ac.kopo.financial.vo.CalFirmEtcVO" alias="calFirmEtcVO"/>
+		<typeAlias type="kr.ac.kopo.financial.vo.FirmValueVO" alias="firmValueVO"/>
+		<typeAlias type="kr.ac.kopo.financial.vo.AccountingPeriod2VO" alias="accountingPeriod2VO"/>
+		<typeAlias type="kr.ac.kopo.financial.vo.FinanceStatVO" alias="financeStatVO"/>
+		
+		<typeAlias type="kr.ac.kopo.loan.vo.LoanProductVO" alias="loanProductVO"/>
+		<typeAlias type="kr.ac.kopo.loan.vo.ApplyLoanVO" alias="applyLoanVO"/>
+		<typeAlias type="kr.ac.kopo.loan.vo.BankAccountVO" alias="bankAccountVO"/>
+		<typeAlias type="kr.ac.kopo.loan.vo.LoanVO" alias="loanVO"/>
+		
+		<typeAlias type="kr.ac.kopo.manager.vo.BankerVO" alias="bankerVO"/>
+		<typeAlias type="kr.ac.kopo.manager.vo.LoanEvalVO" alias="loanEvalVO"/>
+		
+	</typeAliases>
+</configuration>

@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.ac.kopo.loan.dao.LoanDAO">
+
+	<resultMap type="loanProductVO" id="loanProductMap">
+		<result column="loan_product_code" property="loanProductCode" />
+		<result column="summary" property="summary" />
+		<result column="qualitfication" property="qualification" />
+		<result column="interest_high" property="interestHigh" />
+		<result column="interest_low" property="interestLow" />
+		<result column="loan_term_A" property="loanTermA" />
+		<result column="loan_term_B" property="loanTermB" />
+	</resultMap>
+
+
+	<resultMap type="applyLoanVO" id="applyLoanMap">
+		<result column="loan_no" property="loanNo" />
+		<result column="comp_name" property="compName" />
+		<result column="manager_name" property="managerName" />
+		<result column="manager_phone" property="managerPhone" />
+		<result column="manager_email" property="managerEmail" />
+		<result column="loan_code" property="loanCode" />
+		<result column="loan_amount" property="loanAmount" />
+		<result column="account_no" property="accountNo" />
+		<result column="loan_term" property="loanTerm" />
+		<result column="interest_paydate" property="interestPaydate" />
+		<result column="loan_pay_type" property="loanPayType" />
+		<result column="loan_account" property="loanAccount" />
+		<result column="interest_rate" property="interestRate" />
+		<result column="loan_start_date" property="loanStartDate" />
+		<result column="loan_end_date" property="loanEndDate" />
+		<result column="loan_status" property="loanStatus" />
+		<result column="banker_emp_no" property="bankerEmpNo" />
+		<result column="apply_date" property="applyDate" />
+		<result column="update_date" property="updateDate" />
+	</resultMap>
+
+	<resultMap type="bankAccountVO" id="bankAccountMap">
+		<result column="comp_name" property="compName" />
+		<result column="account_no" property="accountNo" />
+		<result column="BANK_CODE" property="bankCode" />
+		<result column="ACCOUNT_ALIAS" property="accountAlias" />
+		<result column="ACCOUNT_PW" property="accountPw" />
+		<result column="balance" property="balance" />
+		<result column="account_reg_date" property="accountRegDate" />
+		<result column="account_type" property="accountType" />
+	</resultMap>
+
+	<resultMap type="loanVO" id="loanMap">
+		<result column="loan_no" property="loanNo" />
+		<result column="comp_name" property="compName" />
+		<result column="manager_name" property="managerName" />
+		<result column="manager_phone" property="managerPhone" />
+		<result column="manager_email" property="managerEmail" />
+		<result column="loan_code" property="loanCode" />
+		<result column="loan_amount" property="loanAmount" />
+		<result column="account_no" property="accountNo" />
+		<result column="loan_term" property="loanTerm" />
+		<result column="interest_paydate" property="interestPaydate" />
+		<result column="loan_pay_type" property="loanPayType" />
+		<result column="loan_account" property="loanAccount" />
+		<result column="interest_rate" property="interestRate" />
+		<result column="loan_start_date" property="loanStartDate" />
+		<result column="loan_end_date" property="loanEndDate" />
+		<result column="loan_status" property="loanStatus" />
+		<result column="banker_emp_no" property="bankerEmpNo" />
+		<result column="apply_date" property="applyDate" />
+	</resultMap>
+
+
+	<select id="selectLoantProductList" resultMap="loanProductMap">
+		select a.num,
+		a.loan_product_code,b.detail, a.summary
+		from (select row_number() over
+		(order by loan_product_code) as num,
+		loan_product_code, summary
+		from
+		loan_product) a,
+		bank_code b where a.loan_product_code = b.code and
+		a.num
+		between #{startNum} and #{endNum}
+	</select>
+
+	<insert id="insertLoanApply" parameterType="applyLoanVO">
+		insert into
+		loan(loan_no, comp_name, manager_name, manager_phone, manager_email,
+		loan_code, loan_amount, account_no, loan_term, interest_paydate,
+		loan_pay_type, interest_rate, loan_status, banker_emp_no)
+		values(loan_seq.nextval,
+		#{compName}, #{managerName},#{managerPhone} ,
+		#{managerEmail},
+		#{loanCode},
+		#{loanAmount}, #{accountNo}, #{loanTerm},
+		#{interestPaydate}, #{loanPayType}, #{interestRate}, 'LP001',
+		'H221015')
+	</insert>
+
+	<select id="selectFirmAccount" resultMap="bankAccountMap">
+		select * from
+		bank_account where comp_name =#{compName} and account_type = 'F'
+	</select>
+
+	<select id="selectLoanProductDetail" resultMap="loanProductMap">
+		select
+		b.detail,a.loan_product_code, a.summary, a.qualitfication,
+		a.interest_high, a.interest_low, a.loan_term_A, a.loan_term_B from
+		loan_product a, bank_code b where loan_product_code =
+		#{loanProductCode} and
+		a.loan_product_code = b.code
+	</select>
+
+	<select id="searchLoanProduct" resultMap="loanProductMap">
+		select num,
+		loan_product_code,detail, summary from (select row_number() over
+		(order by loan_product_code) as num, b.detail,a.loan_product_code,
+		a.summary
+		from loan_product a, bank_code b where a.loan_product_code =
+		b.code and
+		b.detail like '%'||#{search}||'%') where num between 1 and 5
+	</select>
+
+	<select id="selectCountLoanProduct" resultType="int">
+		select count(*)
+		as count from loan_product
+	</select>
+
+	<select id="searchLoanCount" resultType="int">
+		select count(*) as count
+		from (select row_number() over
+		(order by loan_product_code) as num,
+		b.detail,a.loan_product_code,
+		a.summary
+		from loan_product a, bank_code b
+		where a.loan_product_code =
+		b.code and
+		b.detail like
+		'%'||#{search}||'%')
+	</select>
+
+	<select id="searchKeyword" resultMap="loanProductMap">
+		select a.loan_product_code,
+		b.detail, a.summary from loan_product a, bank_code b where
+		a.loan_product_code = b.code and (b.detail like '%'||#{search}||'%' or
+		a.summary like'%'||#{search}||'%') order by a.loan_product_code desc
+	</select>
+
+	<select id="searchKeywordCount" resultType="int">
+		select
+		count(a.loan_product_code) from loan_product a, bank_code b where
+		a.loan_product_code = b.code and (b.detail like '%'||#{search}||'%' or
+		a.summary like'%'||#{search}||'%')
+	</select>
+
+	<select id="selectLoanAccountApply" resultMap="loanMap">
+		select a.loan_no,
+		a.comp_name, a.manager_name, a.manager_phone, a.manager_email,
+		b.detail as loan_code, a.loan_amount, a.account_no,
+		a.loan_term,
+		a.interest_paydate, d.detail as loan_pay_type, a.loan_account,
+		a.interest_rate, a.loan_start_date, a.loan_end_date,
+		c.detail as
+		loan_status, a.banker_emp_no, a.apply_date from LOAN a, bank_code
+		b,
+		bank_code c, bank_code d
+		where comp_name = #{compName} and (loan_status
+		= 'LP001' or loan_status = 'LP002' or loan_status = 'LP003' or
+		loan_status = 'LP004') and
+		a.loan_code
+		= b.code and a.loan_status =
+		c.code and a.loan_pay_type =
+		d.code order
+		by apply_date desc
+	</select>
+
+	<select id="selectConfirmLoanAccount" resultMap="loanMap">
+		select
+		a.loan_no,
+		a.comp_name, a.manager_name, a.manager_phone,
+		a.manager_email,
+		b.detail as loan_code, a.loan_amount, a.account_no,
+		a.loan_term,
+		a.interest_paydate, d.detail as loan_pay_type,
+		a.loan_account,
+		a.interest_rate, to_char(a.loan_start_date, 'yyyy-mm-dd') as loan_start_date, 
+		to_char(a.loan_end_date,'yyyy-mm-dd') as loan_end_date,
+		c.detail as
+		loan_status, a.banker_emp_no, a.apply_date from LOAN a,
+		bank_code
+		b,
+		bank_code c, bank_code d
+		where comp_name = #{compName} and
+		loan_status = 'LP004' and
+		a.loan_code
+		= b.code and a.loan_status =
+		c.code and a.loan_pay_type =
+		d.code order
+		by apply_date
+	</select>
+
+	<select id="selectAllLoanEval" resultMap="applyLoanMap">
+		select a.loan_no,
+		a.comp_name, b.detail as loan_code, a.loan_amount, a.manager_name,
+		c.detail as loan_status,
+		to_char(a.apply_date, 'yyyy-mm-dd') as
+		apply_date from loan a, bank_code b, bank_code c
+		where a.loan_code =
+		b.code and a.loan_status = c.code and
+		banker_emp_no = #{empNo}
+	</select>
+
+	<select id="selectLoanEvalDetail" resultMap="loanMap">
+		select a.loan_no,
+		a.comp_name, a.manager_name, a.manager_email, b.detail as loan_code,
+		a.loan_amount,
+		a.account_no, a.loan_term, c.detail as loan_pay_type,
+		a.interest_rate, a.apply_date
+		from LOAN a, bank_code b, bank_code c
+		where loan_no = #{loanNo} and
+		a.loan_code = b.code and a.loan_pay_type
+		= c.code
+	</select>
+
+	<insert id="updateConfirmLoan" statementType="CALLABLE"
+		parameterType="loanVO">
+		{call update_loan(#{loanNo}, #{interestRate},
+		#{loanAccount}, #{loanTerm},
+		#{loanAmount})}
+	</insert>
+
+	<select id="selectNewLoanEval" resultMap="applyLoanMap">
+		select a.loan_no,
+		a.comp_name, b.detail as loan_code, a.loan_amount, a.manager_name,
+		c.detail as loan_status,
+		to_char(a.apply_date, 'yyyy-mm-dd') as
+		apply_date from loan a, bank_code b, bank_code c
+		where a.loan_code =
+		b.code and a.loan_status = c.code and
+		banker_emp_no = #{empNo} and
+		(a.loan_status = 'LP001') order by
+		 a.apply_date desc 
+	</select>
+	
+	<select id="selectCurrentLoanEval" resultMap="applyLoanMap">
+		select a.loan_no,
+		a.comp_name, b.detail as loan_code, a.loan_amount, a.manager_name,
+		c.detail as loan_status,
+		to_char(a.apply_date, 'yyyy-mm-dd') as
+		apply_date, to_char(a.update_date, 'yyyy-mm-dd') as
+		update_date from loan a, bank_code b, bank_code c
+		where a.loan_code =
+		b.code and a.loan_status = c.code and
+		banker_emp_no = #{empNo} and
+		(a.loan_status = 'LP003' or a.loan_status = 'LP004') order by
+		 a.update_date desc 
+	</select>
+	
+	<select id="clickLoanEval" resultMap="applyLoanMap">
+		select a.loan_no,
+		a.comp_name, b.detail as loan_code, a.loan_amount, a.manager_name,
+		c.detail as loan_status,
+		to_char(a.apply_date, 'yyyy-mm-dd') as
+		apply_date from loan a, bank_code b, bank_code c
+		where a.loan_code =
+		b.code and a.loan_status = c.code and
+		banker_emp_no = #{empNo} and
+		(a.loan_status = #{loanCode1} or a.loan_status = #{loanCode2}) order by
+		 a.update_date desc 
+	</select>
+
+</mapper>

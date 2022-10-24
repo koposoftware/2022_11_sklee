@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.ac.kopo.financial.dao.FinancialDAO">
+	<resultMap type="calFirmVO" id="calFirmMap">
+		<result column="comp_name" property="compName" />
+		<result column="fiscal_year" property="fiscalYear" />
+		<result column="sales" property="sales" />
+		<result column="depreciation" property="depreciation" />
+		<result column="cost_of_sales" property="costOfSales" />
+		<result column="current_assets" property="currentAssets" />
+		<result column="long_term_assets" property="longTermAssets" />
+		<result column="current_liabilities"
+			property="currentLiabilities" />
+		<result column="long_term_liabilities"
+			property="longTermLiabilities" />
+	</resultMap>
+
+	<resultMap type="firmValueVO" id="firmValueMap">
+		<result column="wacc" property="wacc" />
+		<result column="firm_val_low" property="firmValLow" />
+		<result column="firm_val_high" property="firmValHigh" />
+	</resultMap>
+
+	<resultMap type="accountingPeriod2VO"
+		id="accountingPeriod2Map">
+		<result column="comp_name" property="compName" />
+		<result column="accounting_period" property="accountingPeriod" />
+		<result column="start_date" property="startDate" />
+		<result column="end_date" property="endDate" />
+	</resultMap>
+
+	<resultMap type="financeStatVO" id="financialStatMap">
+		<result column="current_ratio" property="currentRatio" />
+		<result column="debt_ratio" property="debtRatio" />
+		<result column="total_asset_return" property="totalAssetReturn" />
+		<result column="sales" property="sales" />
+		<result column="cost_of_sales" property="costOfSales" />
+		<result column="net_income" property="netIncome" />
+		<result column="sales_diff" property="salesDiff" />
+		<result column="cost_of_sales_diff" property="costOfSalesDiff" />
+		<result column="net_income_diff" property="netIncomeDiff" />
+	</resultMap>
+
+
+	<insert id="insertCalFirm" parameterType="calFirmVO">
+		insert into
+		calculate_firm_value(comp_name, fiscal_year, sales, cost_of_sales,
+		depreciation, current_assets, long_term_assets, current_liabilities,
+		long_term_liabilities)
+		values(#{compName}, #{fiscalYear},
+		#{sales},
+		#{costOfSales},#{depreciation}, #{currentAssets}, #{longTermAssets},
+		#{currentLiabilities}, #{longTermLiabilities})
+	</insert>
+
+
+	<insert id="insertFirmValue" statementType="CALLABLE"
+		parameterType="calFirmEtcVO">
+		{call cal_firm_val(#{taxRate}, #{compName}, #{kd},
+		#{ke}, #{growthRate})}
+	</insert>
+
+
+	<select id="selectFirmValue" resultMap="firmValueMap"
+		parameterType="String">
+		select * from FIRM_VALUE where COMP_NAME =#{compName}
+		and REG_DATE = (select
+		max(REG_DATE) from FIRM_VALUE where COMP_NAME =
+		#{compName})
+	</select>
+
+	<select id="selectAllAccountingPeriod"
+		resultMap="accountingPeriod2Map">
+		select comp_name, accounting_period, to_char(start_date,
+		'yyyy-mm-dd') as start_date, to_char(end_date, 'yyyy-mm-dd') as
+		end_date from accounting_period where comp_name = #{compName} order by
+		accounting_period desc
+	</select>
+
+	<select id="selectFinancialStat" resultMap="financialStatMap">
+		select
+		round((a.current_assets/a.current_liabilities)*100) as current_ratio ,
+		round((a.liabilities/a.equity)*100) as debt_ratio,
+		round(((b.net_income)/(a.current_assets + a.long_term_assets))*100) as
+		total_asset_return,
+		b.sales, b.cost_of_sales,b.net_income,
+		round((((b.sales -
+		c.sales)/c.sales)*100)) as sales_diff,
+		round(((b.cost_of_sales - c.cost_of_sales)/c.cost_of_sales)*100) as
+		cost_of_sales_diff,
+		round((((b.net_income -
+		c.net_income)/c.net_income)*100)) as
+		net_income_diff
+		from (select
+		current_assets, current_liabilities, liabilities,
+		long_term_assets,
+		equity, accounting_period from balance_sheet where
+		comp_name =
+		#{compName} and accounting_period = #{accountingPeriod1}) a,
+		(select
+		sales, cost_of_sales, net_income , accounting_period, comp_name from
+		income_statement where comp_name = #{compName} and accounting_period =
+		#{accountingPeriod1}) b ,
+		(select sales, cost_of_sales, net_income ,
+		accounting_period, comp_name from
+		income_statement where comp_name =
+		#{compName} and accounting_period =
+		#{accountingPeriod2}) c
+		where
+		a.accounting_period = b.accounting_period and b.comp_name =
+		c.comp_name
+	</select>
+
+	<select id="selectLiquidity" resultType="int">
+		select (Liquidity_1-
+		Liquidity_0) as liquidity from
+		(select (cash + balance_sheet.short_term_financial) as Liquidity_1 from
+		balance_sheet where comp_name = #{compName} and accounting_period =
+		(select max(accounting_period) from balance_sheet)) a,
+		(select (cash + balance_sheet.short_term_financial) as Liquidity_0 from
+		balance_sheet where comp_name = #{compName}
+		and accounting_period = (select a.accounting_period from balance_sheet a,
+		(select row_number() over (order by accounting_period desc) as num,
+		accounting_period from balance_sheet) b
+		where a.accounting_period = b.accounting_period and num = 2)) b
+	</select>
+</mapper>

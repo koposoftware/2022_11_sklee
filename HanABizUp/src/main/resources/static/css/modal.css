@@ -1,0 +1,280 @@
+@charset "UTF-8";
+
+/* modal */
+#hrModal{
+    --bs-modal-width: 600px;
+    --bs-modal-margin: 70px;
+}
+
+#rcModal{
+    --bs-modal-width: 800px;
+    --bs-modal-margin: 70px;
+}
+
+#bsModal{
+    --bs-modal-width: 850px;
+    --bs-modal-margin: 70px;
+}
+
+#makeBsModal{
+	--bs-modal-width: 600px;
+    --bs-modal-margin: 70px;
+}
+
+#changeBsModal{
+	--bs-modal-width: 550px;
+    --bs-modal-margin: 70px;
+}
+
+#liquidityModal{
+	--bs-modal-width: 550px;
+    --bs-modal-margin: 70px;
+}
+.modal-body img{
+    width: 80px;
+    margin-bottom: 10px;
+}
+
+.salary_form{
+    width: 500px;
+    text-align: center;
+    border-bottom: 2px solid var(--color-light-3);
+}
+
+.salary_form th{
+    height: 50px;
+    border-bottom: 2px solid var(--color-light-3);
+}
+
+.salary_form tbody tr{
+    height: 50px;
+}
+
+.modal_title{
+    font-size: 25px;
+    font-weight: 600;
+    color: var(--color-black-matt);
+}
+
+.download_btns{
+    display: flex;
+    justify-content: end;
+    width: 100%;
+}
+
+.download{
+    display: flex;
+    justify-content: end;
+    width: 96%;
+    padding: 0;
+}
+
+.download span{
+    font-size: 25px;
+}
+
+.download_btn{
+    margin: 0;
+    padding: 0;
+    width: 25px;
+    height: 25px;
+    background: none;
+    border:none;
+}
+
+.download_btn:hover{
+    background-color: var(--color-gray-light);
+}
+
+.download_menu{
+    padding: 0;
+    margin: 0;
+    height: auto;
+    width: 150px;
+    border: none;
+    transform: translateX(-7%);
+    box-shadow: 0 10px 20px var(--color-gray-light-2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    border-radius: 5px;
+}
+
+.download_menu li{
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    width: 100%;
+}
+
+.download_menu li a{
+    text-decoration: none;
+    font-size: 14px;
+    color: var(--color-black-matt);
+    padding: 5px 0;
+    font-weight: 600;
+}
+
+.download_menu li:hover{
+    background-color: var(--color-blue-2);
+    color: var(--color-white);
+}
+
+.download_menu a:hover{
+    color: var(--color-white);
+}
+
+.bs_head{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bs_head h6{
+    letter-spacing: 15px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.bs_head p{
+    font-size: 15px;
+    letter-spacing: 0.7px;
+}
+
+.finance_table{
+    width: 90%;
+    font-size: 15px;
+}
+
+.bs_sum{
+    letter-spacing: 60px;
+}
+
+.bs_sum_1{
+    letter-spacing: 11px;
+} 
+
+.bs_sum_2{
+    letter-spacing: 7px;
+}
+
+.is_minus{
+    padding-left: 20px !important;
+}
+
+.accounting_period{
+    margin-top: 40px;
+}
+
+.modal_notice{
+    display: flex;
+    justify-content: start;
+}
+
+.modal_notice p {
+    color: var(--color-hana-red);
+}
+
+.modal_date{
+    border: 1px solid var(--color-light-3);
+    padding: 5px 30px;
+    border-radius: 5px;
+}
+
+.accounting_period_title{
+    font-size: 22px;
+    font-weight: 600;
+}
+
+
+/* 상환금 비교 MODAL */
+#interestModal{
+    --bs-modal-width: 700px;
+    --bs-modal-margin: 70px;
+}
+
+.interest_modal_header{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.interest_modal_header p{
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.interest_modal_table{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.modal_icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal_icon span{
+    font-size: 30px;
+}
+
+
+/* 유동성 모달 */
+.liquidity_title{
+    font-size: 24px;
+    margin-top: 10px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.liquidity_notice{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items:center;
+}
+
+.liquidity_notice h4{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.liquidity_notice h5{
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 30px;
+}
+
+.liquidity_notice p{
+    font-size: 15px;
+    color: var(--color-gray-1);
+}
+
+.liquidity_notice a:hover{
+    opacity: 70%;
+}
+
+#liquidityModal{
+    --bs-modal-width: 470px;
+    --bs-modal-margin: 70px;
+}
+
+/* 사업자등록증 업로드 */
+#bizRegModal{
+    --bs-modal-width: 600px;
+    --bs-modal-margin: 70px;
+}
+
+#previewImage{
+    width: 300px;
+}

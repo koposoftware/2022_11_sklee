@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.ac.kopo.business.dao.BusinessDAO">
+	<resultMap type="productVO" id="productMap">
+		<result column="comp_name" property="compName" />
+		<result column="product_name" property="productName" />
+		<result column="product_cost" property="productCost" />
+		<result column="inventory" property="inventory" />
+		<result column="product_sold" property="productSold" />
+	</resultMap>
+
+	<resultMap type="ledgerVO" id="ledgerMap">
+		<result column="ledger_no" property="ledgerNo" />
+		<result column="ledger_sub_no" property="ledgerSubNo" />
+		<result column="comp_name" property="compName" />
+		<result column="total_amount" property="totalAmount" />
+		<result column="detail" property="detail" />
+		<result column="debit" property="debit" />
+		<result column="credit" property="credit" />
+		<result column="ledger_date" property="ledgerDate" />
+	</resultMap>
+
+	<resultMap type="accountingCodeVO" id="accountingCodeMap">
+		<result column="accounting_code" property="accountingCode" />
+		<result column="accounting_detail" property="accountingDetail" />
+	</resultMap>
+
+	<resultMap type="sellingExpensesVO" id="sellingExpensesMap">
+		<result column="comp_name" property="compName" />
+		<result column="ledger_date" property="ledgerDate" />
+		<result column="debit_code" property="debitCode" />
+		<result column="total_amount" property="totalAmount" />
+	</resultMap>
+
+	<resultMap type="trialBalanceVO" id="trialBalanceMap">
+		<result column="accounting_code" property="accountingCode" />
+		<result column="accounting_detail" property="accountingDetail" />
+		<result column="debit_amount" property="debitAmount" />
+		<result column="debit_sum" property="debitSum" />
+		<result column="credit_amount" property="creditAmount" />
+		<result column="credit_sum" property="creditSum" />
+	</resultMap>
+
+	<resultMap type="incomeStatementVO" id="incomeStatementMap">
+		<result column="cost_of_sales" property="costOfSales" />
+		<result column="gross_profit" property="grossProfit" />
+		<result column="selling_expenses" property="sellingExpenses" />
+		<result column="operating_income" property="operatingIncome" />
+		<result column="non_operating_income"
+			property="nonOperatingIncome" />
+		<result column="non_operating_expenses"
+			property="nonOperatingExpenses" />
+		<result column="income_tax" property="incomeTax" />
+		<result column="net_income" property="netIncome" />
+	</resultMap>
+
+	<resultMap type="balanceSheetVO" id="balanceSheetMap">
+		<result column="current_assets" property="currentAssets" />
+		<result column="cash" property="cash" />
+		<result column="trade_receivables" property="tradeReceivables" />
+		<result column="short_term_financial"
+			property="shortTermFinancial" />
+		<result column="inventories" property="inventories" />
+		<result column="long_term_assets" property="longTermAssets" />
+		<result column="long_term_financial"
+			property="longTermFinancial" />
+		<result column="tangible_assets" property="tangibleAssets" />
+		<result column="investment_properties"
+			property="investmentProperties" />
+		<result column="intangible_assets" property="intangibleAssets" />
+		<result column="other_long_term_assets"
+			property="otherLongTermAssets" />
+		<result column="liabilities" property="liabilities" />
+		<result column="current_liabilities"
+			property="currentLiabilities" />
+		<result column="trade_payables" property="tradePayables" />
+		<result column="short_term_borrowings"
+			property="shortTermBorrowings" />
+		<result column="income_taxes_payables"
+			property="incomeTaxesPayables" />
+		<result column="accured_expenses" property="accuredExpenses" />
+		<result column="long_term_liabilities"
+			property="longTermLiabilities" />
+		<result column="long_term_borrowings"
+			property="longTermBorrowings" />
+		<result column="equity" property="equity" />
+		<result column="capital_stock" property="capitalStock" />
+		<result column="capital_surplus" property="capitalSurplus" />
+		<result column="retained_earning" property="retainedEarning" />
+	</resultMap>
+
+	<resultMap type="salesStatVO" id="salesStatMap">
+		<result column="current_sales" property="currentSales" />
+		<result column="recent_sales" property="recentSales" />
+		<result column="yearly_sales" property="yearlySales" />
+		<result column="current_cost" property="currentCost" />
+		<result column="recent_cost" property="recentCost" />
+	</resultMap>
+
+	<resultMap type="keywordSearchVO" id="keywordSearchMap">
+		<result column="accounting_code" property="accountingCode" />
+		<result column="search_keyword" property="searchKeyword" />
+		<result column="search_detail" property="searchDetail" />
+	</resultMap>
+
+
+	<select id="selectAllProduct" parameterType="String"
+		resultMap="productMap">
+		select * from PRODUCT where comp_name =
+		#{compName}
+	</select>
+
+	<insert id="insertProduct" parameterType="productVO">
+		insert into
+		PRODUCT(comp_name, product_name, product_cost, inventory,
+		product_sold) VALUES(#{compName},
+		#{productName}, #{productCost},
+		#{inventory}, #{productSold})
+	</insert>
+
+	<insert id="insertProductLog" parameterType="productVO">
+		insert into
+		product_log(product_log_no,comp_name, product_name,
+		quantity,detail,
+		inventory)
+		values(product_seq.nextval,#{compName}, #{productName},
+		#{inventory}, '재고증가', #{inventory})
+	</insert>
+
+	<insert id="insertRevenue" statementType="CALLABLE"
+		parameterType="revenueVO">
+		{call insert_revenue(#{compName}, #{totalAmount},
+		#{detail},
+		#{paymentCode}, #{ledgerDate}, #{productName}, #{quantity})}
+	</insert>
+
+	<insert id="insertProductCost" statementType="CALLABLE"
+		parameterType="productCostVO">
+		{call insert_product_cost(#{compName}, #{productName} ,
+		#{quantity}, #{detail}, #{paymentCode}, #{ledgerDate} )}
+	</insert>
+
+	<select id="confirmLedger" resultMap="ledgerMap">
+		select a.ledger_no,
+		a.ledger_sub_no, a.comp_name, a.total_amount, a.detail,
+		b.accounting_detail as debit, c.accounting_detail as credit,
+		to_char(a.ledger_date, 'yyyy-mm-dd') as ledger_date
+		from
+		accounting_ledger a, accounting_code b, accounting_code c where
+		a.debit_code = b.accounting_code and a.credit_code = c.accounting_code
+		and
+		comp_name = #{compName}
+		and
+		ledger_no between
+		((select max(ledger_no)
+		from
+		accounting_ledger)-#{row}) and (select
+		max(ledger_no) from
+		accounting_ledger) order by ledger_no desc,
+		ledger_sub_no asc
+	</select>
+
+	<select id="allLedger" resultMap="ledgerMap">
+		select a.num as
+		ledger_no,b.accounting_detail as debit, c.accounting_detail as credit,
+		a.total_amount, a.detail,
+		to_char(a.ledger_date, 'yyyy-mm-dd') as
+		ledger_date
+		from (select row_number() over (order by LEDGER_NO desc,
+		LEDGER_SUB_NO asc) as num, COMP_NAME, LEDGER_NO, LEDGER_SUB_NO,
+		TOTAL_AMOUNT, detail ,DEBIT_CODE, CREDIT_CODE, LEDGER_DATE from
+		ACCOUNTING_LEDGER where comp_name = #{compName} order by LEDGER_NO
+		desc,
+		LEDGER_SUB_NO asc) a, accounting_code b, accounting_code c where
+		a.debit_code = b.accounting_code and a.credit_code = c.accounting_code
+		and num between #{startNum} and #{endNum}
+		order by a.num asc
+	</select>
+
+	<select id="selectAllCostCode" resultMap="accountingCodeMap">
+		select * from
+		accounting_code where accounting_code like 'C%3%'
+	</select>
+
+	<insert id="insertSellingExpenses" statementType="CALLABLE"
+		parameterType="sellingExpensesVO">
+		{call insert_selling_expenses(#{compName},
+		#{ledgerDate}, #{debitCode} ,#{totalAmount}, #{paymentCode},
+		#{detail})}
+	</insert>
+
+	<select id="selectAllAssetsCode" resultMap="accountingCodeMap">
+		select * from
+		accounting_code where accounting_code like 'A%2%'
+	</select>
+
+	<insert id="insertAssets" statementType="CALLABLE"
+		parameterType="assetsVO">
+		{call insert_assets(#{compName}, #{ledgerDate},
+		#{debitCode} ,#{totalAmount}, #{paymentCode}, #{detail})}
+	</insert>
+	
+	<insert id="insertTrialBalance" statementType="CALLABLE">
+		{call insert_trial_sheet(#{compName}, #{accountingPeriod}, #{startDate}, #{endDate})}
+	</insert>
+
+	<select id="selectTrialBalance"
+		parameterType="accountingPeriodVO" resultMap="trialBalanceMap">
+		select
+		c.accounting_detail, c.ACCOUNTING_CODE,t.debit_amount,
+		t.credit_amount, t.debit_sum, t.credit_sum
+		from trial_balance t,
+		accounting_code c
+		where t.accounting_code = c.accounting_code and
+		comp_name = #{compName} and
+		t.ACCOUNTING_PERIOD = #{accountingPeriod}
+	</select>
+
+	<insert id="insertIncomeStatement" statementType="CALLABLE">
+		{call
+		insert_income_statement(#{compName}, #{accountingPeriod},
+		#{corporateTax})}
+	</insert>
+
+
+	<insert id="insertBalanceSheet1" statementType="CALLABLE">
+		{call
+		insert_balance_sheet(#{compName}, #{accountingPeriod},
+		#{corporateTax})}
+	</insert>
+	
+	<insert id="insertBalanceSheet2" statementType="CALLABLE">
+		{call
+		insert_balance_sheet_2(#{compName}, #{accountingPeriod1},
+		#{accountingPeriod2})}
+	</insert>
+	
+	
+	<select id="selectIncomeStatement"
+		resultMap="incomeStatementMap" parameterType="accountingPeriodVO">
+		select * from
+		income_statement where comp_name = #{compName} and
+		accounting_period =
+		#{accountingPeriod}
+	</select>
+
+	<select id="selectBalanceSheet" resultMap="balanceSheetMap"
+		parameterType="accountingPeriodVO">
+		select * from BALANCE_SHEET where COMP_NAME =
+		#{compName} and ACCOUNTING_PERIOD = #{accountingPeriod}
+	</select>
+
+	<select id="selectLedgerCount" resultType="int"
+		parameterType="String">
+		select count(*) from ACCOUNTING_LEDGER where COMP_NAME =
+		#{compName}
+	</select>
+
+	<select id="selectProductStat" resultMap="productMap">
+		select product_name,
+		sum(quantity) as product_sold from product_log where
+		detail = '재고판매'
+		and comp_name = #{compName} and to_char(trans_date,
+		'yyyy-mm') =
+		#{month} group by product_name order by product_sold
+		desc
+	</select>
+
+	<select id="selectProductList" resultMap="productMap">
+		select * from product
+		where comp_name = #{compName} order by product_sold desc
+	</select>
+
+	<select id="selectAllBalanceSheet" parameterType="String"
+		resultMap="balanceSheetMap">
+		select * from balance_sheet where comp_name = #{compName}
+		order by
+		ACCOUNTING_PERIOD desc
+	</select>
+
+	<select id="selectAlIncomeStatement" parameterType="String"
+		resultMap="incomeStatementMap">
+		select * from INCOME_STATEMENT where COMP_NAME = #{compName}
+		order by ACCOUNTING_PERIOD desc
+	</select>
+
+	<select id="selectSalesStat" resultMap="salesStatMap">
+		select current_sales,
+		recent_sales, current_cost, recent_cost, yearly_sales
+		from
+		(select
+		sum(TOTAL_AMOUNT) as current_sales from ACCOUNTING_LEDGER where
+		COMP_NAME = #{compName} and to_char(LEDGER_DATE, 'yyyy') = #{year} and
+		to_char(LEDGER_DATE, 'mm') = #{curMonth} and CREDIT_CODE = 'C1001'),
+		(select sum(TOTAL_AMOUNT) as recent_sales from ACCOUNTING_LEDGER where
+		COMP_NAME = #{compName} and to_char(LEDGER_DATE, 'yyyy') = #{year} and
+		to_char(LEDGER_DATE, 'mm') = #{recMonth} and CREDIT_CODE = 'C1001'),
+		(select sum(TOTAL_AMOUNT) as yearly_sales from ACCOUNTING_LEDGER where
+		COMP_NAME = #{compName} and to_char(LEDGER_DATE, 'yyyy') = #{year} and
+		CREDIT_CODE = 'C1001'),
+		(select sum(TOTAL_AMOUNT) as current_cost from
+		ACCOUNTING_LEDGER where
+		COMP_NAME = #{compName} and
+		to_char(LEDGER_DATE, 'yyyy') = #{year} and
+		to_char(LEDGER_DATE, 'mm') =
+		#{curMonth} and DEBIT_CODE = 'C2001'),
+		(select sum(TOTAL_AMOUNT) as
+		recent_cost from ACCOUNTING_LEDGER where
+		COMP_NAME = #{compName} and
+		to_char(LEDGER_DATE, 'yyyy') = #{year} and
+		to_char(LEDGER_DATE, 'mm') =
+		#{recMonth} and DEBIT_CODE = 'C2001')
+	</select>
+
+	<insert id="insertAccountingPeriod"
+		parameterType="accountingPeriodVO">
+		insert into accounting_period(comp_name,
+		accounting_period, start_date,
+		end_date)
+		values(#{compName},
+		#{accountingPeriod}, to_date(#{startDate}, 'yyyy-mm-dd'),
+		to_date(#{endDate}, 'yyyy-mm-dd'))
+	</insert>
+
+	<select id="selectRecentBalanceSheet"
+		resultMap="balanceSheetMap">
+		select * from balance_sheet where comp_name = #{compName}
+		and
+		accounting_period = (select max(accounting_period) from
+		balance_sheet
+		where comp_name = #{compName})
+	</select>
+
+	<select id="selectConfirmLedger" resultMap="ledgerMap">
+		select num,
+		total_amount, detail, payment_code, debit_code, credit_code,
+		ledger_type, ledger_date, reg_date from
+		(select row_number() over
+		(order by ledger_no desc, ledger_sub_no asc) as
+		num,
+		ledger_no,
+		ledger_sub_no, total_amount, detail, payment_code, debit_code,
+		credit_code, ledger_type, ledger_date, reg_date from accounting_ledger
+		where comp_name = #{compName} and ledger_type = #{ledgerType}) where
+		num between 1
+		and #{num}
+	</select>
+
+	<select id="searchAccountingKeyword"
+		resultMap="keywordSearchMap">
+		select b.accounting_detail as accounting_code,
+		a.search_keyword,
+		a.search_detail
+		from accounting_search a,
+		accounting_code b
+		where a.accounting_code = b.accounting_code and
+		a.search_keyword like
+		'%'|| #{searchKeyword} ||'%'
+	</select>
+</mapper>

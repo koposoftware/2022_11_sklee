@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.ac.kopo.manager.dao.ManagerDAO">
+	<resultMap type="bankerVO" id="bankerMap">
+		<result column="emp_no" property="empNo" />
+		<result column="password" property="password" />
+		<result column="name" property="name" />
+		<result column="phone" property="phone" />
+		<result column="email" property="email" />
+		<result column="addr" property="addr" />
+		<result column="rank" property="rank" />
+		<result column="hire_date" property="hireDate" />
+	</resultMap>
+
+	<resultMap type="loanEvalVO" id="loanEvalMap">
+		<result column="eval_loan" property="evalLoan" />
+		<result column="eval_amount" property="evalAmount" />
+		<result column="eval_sum" property="evalSum" />
+		<result column="step1" property="step1" />
+		<result column="step2" property="step2" />
+		<result column="step3" property="step3" />
+		<result column="step4" property="step4" />
+	</resultMap>
+
+	<select id="selectBanker" parameterType="bankerVO"
+		resultMap="bankerMap">
+		select * from banker where emp_no = #{empNo} and password =
+		#{password}
+	</select>
+
+	<select id="selectLoanEvalStat" resultMap="loanEvalMap">
+		select a.step1,
+		b.step2, c.step3, d.step4, (a.step1 + b.step2) as eval_loan,
+		e.eval_amount, (c.step3 + d.step4)as eval_sum
+		from (select count(*) as
+		step1 from loan where banker_emp_no = #{empNo}
+		and (loan_status =
+		'LP001')) a,
+		(select count(*) as step2 from loan where banker_emp_no =
+		#{empNo} and
+		(loan_status = 'LP002')) b,
+		(select count(*) as step3 from
+		loan where banker_emp_no = #{empNo} and
+		(loan_status = 'LP003' or
+		loan_status = 'LP004')) c,
+		(select count(*) as step4 from loan where
+		banker_emp_no = #{empNo} and
+		(loan_status = 'LP005')) d,
+		(select
+		sum(loan_amount)/10000 as eval_amount from loan where banker_emp_no =
+		#{empNo} and (loan_status = 'LP004' or loan_status = 'LP005')) e
+	</select>
+
+	<update id="updateLoanStatus">
+		update loan set loan_status = 'LP002' where loan_no = #{loanNo}
+	</update>
+	
+	<insert id="loanRefusal">
+		{ call loan_refusal(#{loanNo})}
+	</insert>
+
+</mapper>

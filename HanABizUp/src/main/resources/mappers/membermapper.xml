@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.ac.kopo.member.dao.MemberDAO">
+	<resultMap type="memberVO" id="memberMap">
+		<result column="comp_name" property="compName" />
+		<result column="comp_reg_no" property="compRegno" />
+		<result column="comp_addr" property="compAddr" />
+		<result column="ceo_email" property="ceoEmail" />
+		<result column="ceo_phone" property="ceoPhone" />
+		<result column="comp_start_date" property="compStartDate" />
+	</resultMap>
+
+	<select id="selectCompMember" parameterType="memberVO"
+		resultMap="memberMap">
+		select * from MEMBER where id =#{id} and
+		password=#{password}
+	</select>
+
+	<insert id="updateMember" parameterType="memberVO">
+		{call
+		update_member(#{compName}, #{ceo}, #{ceoEmail}, #{ceoPhone},
+		#{compAddr}, #{compStartDate}, #{compRegno})}
+	</insert>
+
+
+</mapper>
