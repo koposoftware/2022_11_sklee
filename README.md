@@ -1,7 +1,7 @@
 # 회계정보기반 재무분석 및 기업대출 연계 서비스
 <img src="./img_HanaBizUp/logo.png" width="700"/><br>
 
-[프로젝트 홈페이지 - https://koposoftware.github.io/finalproject_template/](https://koposoftware.github.io/finalproject_template/)
+[프로젝트 홈페이지 - https://koposoftware.github.io/2022_11_sklee/)
 
 ## 1. 프로젝트 소개
 ### 1) 프로젝트 개요
